@@ -4,12 +4,16 @@
   "private": true,
   "homepage": "https://github.com/alexandriax/meet",
   "dependencies": {
+    "20": "^3.1.9",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "node": "^20.17.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "^5.0.1",
+    "v": "^0.3.0",
+    "v20": "^0.1.0",
     "web-vitals": "^2.1.4",
     "workbox-background-sync": "^6.6.0",
     "workbox-broadcast-update": "^6.6.0",
@@ -52,6 +56,8 @@
   },
   "devDependencies": {
     "gh-pages": "^6.1.1",
-    "serverless": "^4.2.4"
+    "install": "^0.13.0",
+    "npm": "^10.8.3",
+    "serverless-offline": "^13.8.0"
   }
 }

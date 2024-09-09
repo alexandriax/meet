@@ -1,0 +1,40 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: alexandriax
+service: meet-auth-server
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: us-east-1 # or your preferred AWS region
+  environment:
+    NODE_ENV: ${env:NODE_ENV, 'development'} # Ensures your environment variables are available
+    GOOGLE_API_KEY: ${env:GOOGLE_API_KEY, 'api'} # Placeholder for Google API key
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+        - s3:*
+        - sns:*
+        - sqs:*
+      Resource: "*"
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: hello
+          method: get
+          cors: true
+
+plugins:
+  - serverless-offline # Useful for local development
+
+custom:
+  serverless-offline:
+    httpPort: 3000
+
+resources:
+  Resources:
+    # Any additional AWS resources you might need
+# chatgpt code (command not working)

@@ -1,16 +1,36 @@
 'use strict';
 
-module.exports.hello = async (event) => {
-  return {
+const { google } = require("googleapis");
+const calendar = google.calendar("v3");
+const SCOPES = ["https://www.googleapis.com/auth/calendar.events.public.readonly"];
+const { CLIENT_SECRET, CLIENT_ID, CALENDAR_ID } = process.env;
+const redirect_uris = [
+  "https://alexandriax.github.io/meet/"
+];
+
+const oAuth2Client = new google.auth.OAuth2(
+  CLIENT_ID,
+  CLIENT_SECRET,
+  redirect_uris[0]
+);
+
+module.exports.getAuthURL = async () => {
+
+ /* scopes array passed to 'scope' option */
+
+  const authUrl = oAuth2Client.generateAuthUrl({
+  access_type: "offline",
+  scope: SCOPES,
+  });
+
+  return{
     statusCode: 200,
-    body: JSON.stringify(
-      {
-        message: 'Go Serverless v1.0! Your function executed successfully!',
-        input: event,
-      },
-      null,
-      2
-    ),
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+    },
+    body: JSON.stringify({
+      authUrl,
+    }),
   };
 };
-/* chat gpt code, command not working */

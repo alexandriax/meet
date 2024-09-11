@@ -10,5 +10,8 @@
   "description": "",
   "devDependencies": {
     "serverless-offline": "^13.8.0"
+  },
+  "dependencies": {
+    "googleapis": "^144.0.0"
   }
 }

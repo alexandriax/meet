@@ -2,13 +2,19 @@
 org: alexandriax
 service: meet-auth-server
 
+
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs18.x
   region: us-east-1 # or your preferred AWS region
+  timeout: 30
+
   environment:
     NODE_ENV: ${env:NODE_ENV, 'development'} # Ensures your environment variables are available
     GOOGLE_API_KEY: ${env:GOOGLE_API_KEY, 'api'} # Placeholder for Google API key
+    CLIENT_ID: ${file(config.json):CLIENT_ID}
+    CLIENT_SECRET: ${file(config.json):CLIENT_SECRET}
+    CALENDAR_ID: ${file(config.json):CALENDAR_ID}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -19,13 +25,13 @@ provider:
       Resource: "*"
 
 functions:
-  hello:
-    handler: handler.hello
+  getAuthURL:
+    handler: handler.getAuthURL
     events:
       - http:
-          path: hello
+          path: api/get-auth-url
           method: get
-          cors: true
+
 
 plugins:
   - serverless-offline # Useful for local development
@@ -33,6 +39,16 @@ plugins:
 custom:
   serverless-offline:
     httpPort: 3000
+
+package:
+  exclude:
+    - node_modules/**
+    - test/**
+    - .gitignore
+    - .git/**
+    - .serverless/**
+    - '*.md'
+    - '*.json'
 
 resources:
   Resources:

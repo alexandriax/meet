@@ -1,20 +1,19 @@
-# "org" ensures this Service is used with the correct Serverless Framework Access Key.
 org: alexandriax
 service: meet-auth-server
-
 
 provider:
   name: aws
   runtime: nodejs18.x
-  region: us-east-1 # or your preferred AWS region
+  region: us-east-1
   timeout: 30
 
   environment:
-    NODE_ENV: ${env:NODE_ENV, 'development'} # Ensures your environment variables are available
-    GOOGLE_API_KEY: ${env:GOOGLE_API_KEY, 'api'} # Placeholder for Google API key
+    NODE_ENV: ${env:NODE_ENV, 'development'}
+    GOOGLE_API_KEY: ${env:GOOGLE_API_KEY, 'api'}
     CLIENT_ID: ${file(config.json):CLIENT_ID}
     CLIENT_SECRET: ${file(config.json):CLIENT_SECRET}
     CALENDAR_ID: ${file(config.json):CALENDAR_ID}
+
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -27,30 +26,41 @@ provider:
 functions:
   getAuthURL:
     handler: handler.getAuthURL
+    layers:
+      - { Ref: GoogleapisLayerLambdaLayer }
     events:
       - http:
           path: api/get-auth-url
           method: get
-
+  getAccessToken:
+    handler: handler.getAccessToken
+    layers:
+      - { Ref: GoogleapisLayerLambdaLayer }
+    events:
+      - http:
+          path: api/token/{code}
+          method: get
 
 plugins:
-  - serverless-offline # Useful for local development
+  - serverless-offline
 
 custom:
   serverless-offline:
     httpPort: 3000
 
+layers:
+  googleapisLayer:
+    path: layer
+    compatibleRuntimes:
+      - nodejs18.x
+
 package:
+  individually: true
   exclude:
     - node_modules/**
-    - test/**
-    - .gitignore
-    - .git/**
-    - .serverless/**
-    - '*.md'
-    - '*.json'
+    #- .git/**
+    #- .serverless/**
+    #- '*.md'
+    #- '*.json'
 
-resources:
-  Resources:
-    # Any additional AWS resources you might need
 # chatgpt code (command not working)

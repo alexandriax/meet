@@ -33,7 +33,11 @@
               <br />
               <label>code input <input id="code" type="text" value="" /> </label>
               <button id="getToken">get token</button>
-              <p id="accessToken"></p>        
+              <p id="accessToken"></p>   
+              
+              <h4> step 3: get the calendar events using your access token</h4>
+              <button id="getEvents">get events</button>
+              <p id="events"></p>
             
         </main>
 
@@ -78,6 +82,22 @@
           })
           .then(function (json) {
             accessTokenElement.innerText = JSON.stringify(json);
+          });
+      };
+
+      const getEvents = document.getElementById("getEvents");
+      const events = document.getElementById("events");
+      const getCalendarEvents = "https://e77vav8o9h.execute-api.us-east-1.amazonaws.com/dev/api/get-events";
+
+      getEvents.onclick = function () {
+        const { access_token } = JSON.parse(accessTokenElement.innerText);
+        const eventRequest = getCalendarEvents + "/" + access_token;
+        fetch(eventRequest)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (json) {
+            events.innerText = JSON.stringify(json, null, 2);
           });
       };
                    

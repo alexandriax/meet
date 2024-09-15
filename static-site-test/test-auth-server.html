@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="'en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+        <title>test auth server</title>
+      </head>
+    
+      <body>
+        <style>
+            #container {
+                max-width: 500px;
+            }
+            h4{
+                margin-top: 25px;
+            }
+        </style>
+
+        <main id="container">
+            <h1>OAuth2 Test</h1>
+              <h4><b>step 1:</b> get the Auth URL</h4>
+              <p>click the butto below to get your auth url.</p>
+              <button id="getAuthUrlButton">get OAuth URL</button>
+              <p id="result"></p>
+              <a id="authURL" href target="_blank">click to authorize</a>
+
+              <h4>step 2: get your code and exchange for an access token</h4>
+              <p>
+                after you're redirected back to your meet app on github, copy the code from the URL
+              </p>
+              <br />
+              <label>code input <input id="code" type="text" value="" /> </label>
+              <button id="getToken">get token</button>
+              <p id="accessToken"></p>        
+            
+        </main>
+
+        <script type="text/javascript">
+            const getAuthUrlButton = document.getElementById("getAuthUrlButton");
+            const resultElement = document.getElementById("result");
+            const resultLink = document.getElementById("authURL");
+            const getAuthURL = "https://e77vav8o9h.execute-api.us-east-1.amazonaws.com/dev/api/get-auth-url";
+
+            getAuthUrlButton.onclick = function () {
+        fetch(getAuthURL)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (json) {
+            const result = JSON.stringify(json);
+            // we get the value of authUrl
+            const { authUrl } = JSON.parse(result);
+            // then add it to the html
+            resultElement.innerText = result;
+            resultLink.href = authUrl;
+          });
+      };
+
+      const codeValue = document.getElementById("code");
+      const getAccessToken = document.getElementById("getToken");
+      const accessTokenElement = document.getElementById("accessToken");
+      const getToken =
+        "https://e77vav8o9h.execute-api.us-east-1.amazonaws.com/dev/api/token";
+
+      getAccessToken.onclick = function () {
+        let code = codeValue.value;
+
+        // if the authorization code is not URL-encoded, then URL-encode it.
+        if (decodeURIComponent(code) === code) {
+          code = encodeURIComponent(codeValue.value);
+        }
+        const getTokenRequest = getToken +  "/" + code;
+        fetch(getTokenRequest)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (json) {
+            accessTokenElement.innerText = JSON.stringify(json);
+          });
+      };
+                   
+                    
+        </script>
+    
+      </body>
+    </html>
+    </head>
+</html>

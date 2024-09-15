@@ -40,6 +40,14 @@ functions:
       - http:
           path: api/token/{code}
           method: get
+  getCalendarEvents:
+    handler: handler.getCalendarEvents
+    layers:
+      - { Ref: GoogleapisLayerLambdaLayer}
+    events:
+      - http: 
+          path: api/get-events/{access_token}
+          method: get
 
 plugins:
   - serverless-offline

@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/alexandriax/meet/static/css/main.f855e6bc.css",
-    "main.js": "/alexandriax/meet/static/js/main.04f1bb68.js",
+    "main.js": "/alexandriax/meet/static/js/main.f0212154.js",
     "static/js/453.4a9980c6.chunk.js": "/alexandriax/meet/static/js/453.4a9980c6.chunk.js",
     "service-worker.js": "/alexandriax/meet/service-worker.js",
     "index.html": "/alexandriax/meet/index.html",
     "main.f855e6bc.css.map": "/alexandriax/meet/static/css/main.f855e6bc.css.map",
-    "main.04f1bb68.js.map": "/alexandriax/meet/static/js/main.04f1bb68.js.map",
+    "main.f0212154.js.map": "/alexandriax/meet/static/js/main.f0212154.js.map",
     "453.4a9980c6.chunk.js.map": "/alexandriax/meet/static/js/453.4a9980c6.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f855e6bc.css",
-    "static/js/main.04f1bb68.js"
+    "static/js/main.f0212154.js"
   ]
 }

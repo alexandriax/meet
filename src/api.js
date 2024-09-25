@@ -9,7 +9,7 @@ export const extractLocations = (events) => {
 const getToken = async (code) => {
     const encodeCode = encodeURIComponent(code);
     const response = await fetch(
-        'https://e77vav8o9h.execute-api.us-east-1.amazonaws.com/dev/api/token/{code}' + '/' + encodeCode
+        'https://e77vav8o9h.execute-api.us-east-1.amazonaws.com/dev/api/token' + '/' + encodeCode
     );
 
     const { access_token } = await response.json();
@@ -46,7 +46,7 @@ export const getEvents = async () => {
 
     if (token) {
         removeQuery();
-        const url = "https://e77vav8o9h.execute-api.us-east-1.amazonaws.com/dev/api/get-events/{access_token}" + "/" + token;
+        const url = "https://e77vav8o9h.execute-api.us-east-1.amazonaws.com/dev/api/get-events" + "/" + token;
         const response = await fetch(url);
         const result = await response.json();
         if (result) {

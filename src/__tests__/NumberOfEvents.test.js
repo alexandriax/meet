@@ -6,13 +6,11 @@ describe('<NumberOfEvents /> component', () => {
     let NumberOfEventsComponent;
     let numberOfEventsTextbox;
     beforeEach(() => {
-        NumberOfEventsComponent = render(<NumberOfEvents />);
+        const setCurrentNOE = jest.fn();
+        NumberOfEventsComponent = render(<NumberOfEvents currentNOE={32} setCurrentNOE={setCurrentNOE} />);
         numberOfEventsTextbox = NumberOfEventsComponent.queryByRole('textbox');
     });
 
-    beforeEach(() => {
-        
-    })
 
     test('renders textbox', () => {
         expect(numberOfEventsTextbox).toBeInTheDocument();

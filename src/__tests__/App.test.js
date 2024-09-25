@@ -56,4 +56,22 @@ describe('<App /> integration', () => {
         });
     });
 
+    test('updates the number of events rendered when user changes input', async () => {
+        const user = userEvent.setup();
+        const AppComponent = render(<App />);
+        const AppDOM = AppComponent.container.firstChild;
+
+        const NumberOfEventsDOM = AppDOM.querySelector('#number-of-events');
+        const NumberOfEventsInput = within(NumberOfEventsDOM).queryByRole('textbox');
+
+        await user.type(NumberOfEventsInput, '{backspace}{backspace}10');
+
+        const EventListDOM = AppDOM.querySelector('#event-list');
+        const renderedEvents = await waitFor(() => 
+          within(EventListDOM).getAllByRole('listitem')
+        );
+
+        expect(renderedEvents.length).toBe(10);   
+    });
+
 });

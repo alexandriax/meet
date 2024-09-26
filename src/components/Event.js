@@ -23,15 +23,15 @@ const Event = ({ event }) => {
             {event.location}
         </div>
         {!showDetails ? (
-        <button onClick={handleShowDetails}>
+        <button className="details-btn" onClick={handleShowDetails}>
             show details
         </button>
         ) : ( 
             <>
                 <div className='event-details' data-testid='event-details'>
-                    <p> {/* event details go here */} </p>
+                  {event.description} 
                 </div>
-                <button onClick={handleHideDetails}>
+                <button className="details-btn" onClick={handleHideDetails}>
                   hide details
                </button>
             </>

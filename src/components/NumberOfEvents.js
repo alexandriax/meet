@@ -10,9 +10,10 @@ const NumberOfEvents = ({ currentNOE, setCurrentNOE }) => {
     };
 
     return (
-       <div id='number-of-events'>
+       <div id='number-of-events' className='number-of-events'>
            <input 
              type="text"
+             className="num-events-input"
              value={numEvents}
              onChange={handleInputChange}
              aria-label="number of events"

@@ -1,7 +1,8 @@
 import { loadFeature, defineFeature } from 'jest-cucumber';
 import { render, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from '../App';
+import App from '../App.js'
+import Event from '../components/Event.js';
 import { getEvents } from '../api.js';
 
 const feature = loadFeature('./src/features/showHideAnEventsDetails.feature');
@@ -67,30 +68,29 @@ defineFeature(feature, test => {
     });
 
     test('User can collapse an event to hide details.', ({ given, when, then }) => {
+        let EventComponent;
+        let events;
         given('the user has expanded an event to see details', async () => {
-            AppComponent = render(<App />);
-            AppDOM = AppComponent.container.firstChild;
+            events = await getEvents();
+            EventComponent = render(<Event event={events[0]} />)
 
-            const showDetailsButton = AppDOM.querySelector('.details-btn');
-            await userEvent.click(showDetailsButton);
-
-            await waitFor(() => {
-                const eventDetails = AppDOM.querySelector('.event-details');
-                expect(eventDetails).toBeInTheDocument();
-            }, { timeout: 3000 });
+            
+            const showDetails = EventComponent.container.querySelector('.details-btn');
+            await userEvent.click(showDetails);
+            expect(EventComponent.container.querySelector('.event-details')).toBeInTheDocument();
 
         });
 
         when('the user clicks on the “hide details” button for that event', async () => {
-            const hideDetailsButton = AppDOM.querySelector('.details-btn');
+            const hideDetailsButton = EventComponent.container.querySelector('.details-btn');
             await userEvent.click(hideDetailsButton);
         });
 
         then('the event details should be hidden again', async () => {
             await waitFor(() => {
-              const eventDetails = AppDOM.querySelector('.event-details');
+              const eventDetails = EventComponent.container.querySelector('.event-details');
               expect(eventDetails).not.toBeInTheDocument();
-              expect(AppDOM.querySelector('.details-btn')).toHaveTextContent('show details');
+              expect(EventComponent.container.querySelector('.details-btn')).toHaveTextContent('show details');
             });
             
         });

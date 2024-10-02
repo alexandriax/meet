@@ -7,7 +7,7 @@ describe('<NumberOfEvents /> component', () => {
     let numberOfEventsTextbox;
     beforeEach(() => {
         const setCurrentNOE = jest.fn();
-        NumberOfEventsComponent = render(<NumberOfEvents currentNOE={32} setCurrentNOE={setCurrentNOE} />);
+        NumberOfEventsComponent = render(<NumberOfEvents currentNOE={32} setCurrentNOE={setCurrentNOE} setErrorAlert={() => { }}/>);
         numberOfEventsTextbox = NumberOfEventsComponent.queryByRole('textbox');
     });
 

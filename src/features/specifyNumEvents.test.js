@@ -33,7 +33,7 @@ defineFeature(feature, test => {
 
         given('the user is on the main page', () => {
             const setCurrentNOE = jest.fn();
-            NumberOfEventsComponent = render(<NumberOfEvents currentNOE={32} setCurrentNOE={setCurrentNOE} />);
+            NumberOfEventsComponent = render(<NumberOfEvents currentNOE={32} setCurrentNOE={setCurrentNOE} setErrorAlert={() => { }} />);
             numberOfEventsTextbox = NumberOfEventsComponent.queryByRole('textbox');
         });
 

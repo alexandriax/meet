@@ -24,9 +24,16 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
 
     const handleItemClicked = (event) => {
         const value = event.target.textContent;
-        setQuery(value);
+
+        if (value === "see all cties") {
+            setQuery("");
+            setCurrentCity("see all cities");
+        } else {
+            setQuery(value);
+            setCurrentCity(value);
+        }
+        
         setShowSuggestions(false);
-        setCurrentCity(value);
         setInfoAlert("");
     };
 
@@ -50,7 +57,7 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
                     return <li onClick={handleItemClicked} key={suggestion}>{suggestion}</li>
                 })}
                 <li key='see all cities' onClick={handleItemClicked}>
-                    <b>'see all cities</b>
+                    <b>see all cities</b>
                 </li>
              </ul> : null}
         </div>

@@ -12,7 +12,7 @@ defineFeature(feature, test => {
     let AppDOM;
     test('An event element is collapsed by default.', ({ given, when, then }) => {
         
-        given('the user is on the main page', async () => {
+        given('the user is on the main page', () => {
           AppComponent = render(<App />); 
           AppDOM = AppComponent.container.firstChild;
 

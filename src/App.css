@@ -1,4 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:500);
+@import url(https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap);
+
 .App {
   text-align: center;
   padding: 2% 5%;
@@ -17,6 +19,12 @@ p {
   margin: 5px 0;
 }
 
+h1 {
+  font-family: "Rubik Mono One", monospace;
+  font-weight: 400;
+  font-style: normal;
+  color: 	#e6809d;
+}
 input[type="text"],
 input[type="number"] {
   padding: 8px 6px 8px 10px;
@@ -94,4 +102,15 @@ input[type="number"] {
   left: 20px;
   width: 250px;
   z-index: 1000;
+}
+
+.charts-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 768px) {
+  .charts-container {
+    grid-template-columns: 1fr;
+  }
 }

@@ -67,3 +67,4 @@ Meet is a web application built using React to practice modern front-end develop
 4. Deploy to GitHub Pages:  
    `npm run deploy`
 
+![meet-app screenshot](public/meet-app-screenshot.png)
